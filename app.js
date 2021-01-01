@@ -1,17 +1,21 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoute = require("./routes/authRoute");
-const dBURI = require("./config/keys");
+const passport = require("passport");
 
 const app = express();
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
 console.log("listening for requests");
 });
+
+require("./config/passport")(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.get("/", (req, res) => {
   res.send("It works");
 });
 
-// app.use("/auth", authRoute);
+app.use("/auth", authRoute);
