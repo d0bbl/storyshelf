@@ -12,7 +12,6 @@ module.exports = function (passport) {
       proxy: true
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log(accessToken);
-      console.log(profile);
+      done(null, { profile });
       })
   )}
