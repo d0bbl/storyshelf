@@ -8,6 +8,8 @@ const db = require("./config/keys");
 const app = express();
 
 app.use("/auth", authRoute);
+app.use(passport.initialize());
+app.use(passport.session());
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
@@ -15,9 +17,7 @@ console.log("listening for requests");
 });
 
 mongoose.connect(db.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true})
-.then((result) => {
-  console.log("mongo connected");
-})
+.then((result) => console.log("mongo connected"))
 .catch(err => {throw err});
 
 app.get("/", (req, res) => {
