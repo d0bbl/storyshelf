@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 router.get('/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }));
+  passport.authenticate('google', { scope: ["profile", "email"] })
+);
 
 router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: '/home' }),
   (req, res) => {
     res.redirect('/dashboard');
   });
