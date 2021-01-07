@@ -31,3 +31,8 @@
   <li><a href="/auth/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
   <% } %>
 </ul>
+<% if (user) { %>
+<div class="fixed-action-btn">
+  <a href="/add" class="btn-floating btn-large red"><i class="fa fa-plus"></i></a>
+</div>
+<% } %>

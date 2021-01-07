@@ -1,6 +1,16 @@
-
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous">
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
-</html>
+<script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+<script>
+// document.addEventListener('DOMContentLoaded', () => {
+//   var elems = document.querySelectorAll('.sidenav');
+//   var instances = M.sidenav.init(elems, options);
+// });
+$(document).ready(() =>{
+  $('.sidenav').sidenav();
+  $('.fixed-action-btn').floatingActionButton();
+  $('select').formSelect();
+})();
+
+</script>
