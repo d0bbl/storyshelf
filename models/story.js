@@ -41,5 +41,5 @@ const storySchema = new Schema({
   {timestamps: true});
 
 // Create collection and add schema
-const story = mongoose.model('story', storySchema, "stories");
-module.exports = story;
+const Story = mongoose.model('Story', storySchema);
+module.exports = Story;

@@ -10,13 +10,14 @@ const passport = require("passport");
 const authRoute = require("./routes/auth");
 const indexRoute = require("./routes/index");
 const storyRoute = require("./routes/stories");
-const db = require("./config/keys");
-
+const keys = require("./config/keys");
+const truncate = require("./helpers/ejs");
 
 const app = express();
 
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(cookieParser());
 app.use(session({
@@ -48,6 +49,6 @@ app.listen(port, () => {
 console.log("listening for requests");
 });
 
-mongoose.connect(db.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true})
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true})
 .then((result) => console.log("mongo connected"))
 .catch(err => {throw err});

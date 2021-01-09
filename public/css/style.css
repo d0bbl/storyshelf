@@ -8,10 +8,9 @@ body {
     flex: 1 0 auto;
   }
 
-  .nav-wrapper .sidenav-trigger .fa-bars {
+  .nav-wrapper .fa-bars {
     font-size: 25px;
   }
 
   footer {
-    margin-top: 20px;
   }

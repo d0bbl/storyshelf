@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include ("../partials/_tophalf.ejs") %>
+<%- include ("../partials/_tophalf.ejs") %>
 <body>
-  <%- include ("../partials/_header.ejs") %>
+      <%- include ("../partials/_header.ejs") %>
 <main>
   <div class="container">
-    <h1>Stories</h1>
+    <h2 class="header pink-text">Stories</h2>
+    <div class="row">
+      <% if (stories && user ){ %>
+        <% stories.forEach(story => { %>
+        <div class="col s12 m4">
+          <div class="card hoverable">
+            <div class="card-image">
+              <a href="/stories/edit/<%= user.id %>" class="btn-floating halfway-fab waves-effect waves-light red"><i class="fa fa-pencil"></i></a>
+            </div>
+            <div class="card-content center-align">
+              <span class="card-title"><%= story.title %></span>
+              <p><%= truncate.truncate(stripTags.stripTags(story.body), 150) %></p>
+              <br>
+                <div class="chip">
+                <img src="<%= user.image %>">
+                <%= user.firstName %> <%= user.lastName %>
+                </div>
+            </div>
+            <div class="card-action center-align">
+              <a class="btn-grey" href="/stories/show/<%= story._id%>">
+                 Read more
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+      <% } else { %>
+      <p>No stories to display...</p>
+      <% } %>
+    </div>
   </div>
 </main>
   <%- include ("../partials/_footer.ejs") %>
   <%- include ("../partials/_bottomhalf.ejs") %>
 </body>
+<!-- truncate.truncate(story.body, 150) -->
 </html>

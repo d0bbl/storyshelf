@@ -10,10 +10,6 @@ router.get('/dashboard', ensureAuthenticated, (req, res) => {
   res.render('index/dashboard');
 });
 
-router.get('/add', ensureAuthenticated, (req, res) => {
-  res.render('index/add');
-});
-
 router.get('/about', (req, res) => {
   res.render('index/about');
 });

@@ -26,6 +26,3 @@ router.get("/logout", (req, res) => {
 });
 
   module.exports = router;
-
-  // https://storyshelf.herokuapp.com/auth/google/callback
-  // http://localhost:5000/auth/google/callback
