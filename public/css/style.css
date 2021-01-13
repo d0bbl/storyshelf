@@ -13,4 +13,17 @@ body {
   }
 
   footer {
+    margin-top: 30px;
+  }
+
+  .story-body {
+    height: 120px;
+  }
+
+  .dash-status {
+    text-transform: capitalize;
+  }
+
+  #delete-form {
+    display: inline;
   }

@@ -16,7 +16,7 @@ const userSchema = new Schema({
   lastName:{
     type: String,
   },
-  Image:{
+  image:{
     type: String,
   }
 },   { timestamps: true });

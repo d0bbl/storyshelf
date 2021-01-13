@@ -1,8 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const flash = require("connect-flash");
 const session = require("express-session");
 const MongoStore = require('connect-mongo')(session);
+const methodOverride = require('method-override');
 const cookieParser = require("cookie-parser");
 const Story = require("./models/story");
 const User = require("./models/user");
@@ -29,13 +29,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(flash());
 require("./config/passport")(passport);
+app.use(methodOverride('_method'));
+
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+console.log("listening for requests");
+});
+
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true, useFindAndModify: false})
+.then((result) => console.log("mongo connected"))
+.catch(err => {throw err});
 
 app.use((req, res, next) => {
-  res.locals.success_msg = req.flash("success_msg");
-  res.locals.error_msg = req.flash("error_msg");
-  res.locals.error = req.flash("error");
   res.locals.user = req.user || null;
   next();
 });
@@ -43,12 +49,3 @@ app.use((req, res, next) => {
 app.use("/", indexRoute);
 app.use("/auth", authRoute);
 app.use("/stories", storyRoute);
-
-const port = process.env.PORT || 5000;
-app.listen(port, () => {
-console.log("listening for requests");
-});
-
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true})
-.then((result) => console.log("mongo connected"))
-.catch(err => {throw err});

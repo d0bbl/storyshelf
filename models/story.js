@@ -30,12 +30,12 @@ const storySchema = new Schema({
     },
     commentUser:{
       type: Schema.Types.ObjectId,
-      ref:'users'
+      ref:'User'
     }
   }],
   user:{
     type: Schema.Types.ObjectId,
-    ref:'users'
+    ref:'User'
   }
 },
   {timestamps: true});
