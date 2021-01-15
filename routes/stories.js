@@ -64,8 +64,9 @@ router.get("/show/:id", (req, res) => {
   router.get("/edit/:id", ensureAuthenticated, (req, res) => {
     const id = req.params.id;
     Story.findOne({_id: id})
+    .populate("user")
     .then(story => {
-      if (stories.user != req.params.id) {
+      if (story._id != req.params.id) {
         res.redirect("/stories");
       } else {
         res.render("stories/edit", {story
@@ -127,7 +128,7 @@ router.get("/show/:id", (req, res) => {
   })
 
   router.delete("/:id", (req,res) => {
-    Story.findByIdAndDelete({id: req.params.id})
+    Story.findByIdAndDelete({_id: req.params.id})
     .then(() => {
       res.redirect("/dashboard");
     })
