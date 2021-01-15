@@ -32,12 +32,30 @@ router.get("/show/:id", (req, res) => {
   .populate("user")
   .populate("comments.commentUser")
   .then(story => {
+  if(story.status == "public") {
     res.render("stories/show"
     , {
       formatDate: require("../helpers/ejs"),
       editIcon: require("../helpers/ejs"),
       story}
-  );
+    );
+} else {
+  if(req.user){
+    if(req.user.id == story.user._id){
+      res.render("stories/show"
+      , {
+        formatDate: require("../helpers/ejs"),
+        editIcon: require("../helpers/ejs"),
+        story}
+      );
+    } else {
+      res.redirect("/stories");
+    }
+  } else {
+    res.redirect("/stories");
+  }
+}
+
   })
   .catch(err => console.log(err));
 });
@@ -56,6 +74,33 @@ router.get("/show/:id", (req, res) => {
       }
     })
     .catch(err => console.log(err));
+  });
+
+  router.get('/user/:userId', (req, res) => {
+    Story.find({user: req.params.userId, status: 'public'})
+      .populate('user')
+      .then(stories => {
+        res.render('stories/index', {
+          truncate: require("../helpers/ejs"),
+          stripTags: require("../helpers/ejs"),
+          editIcon: require("../helpers/ejs"),
+          stories
+        });
+      });
+  });
+
+// logged in users stories
+  router.get('/my', ensureAuthenticated, (req, res) => {
+    Story.find({user: req.user.id})
+      .populate('user')
+      .then(stories => {
+        res.render('stories/index', {
+          truncate: require("../helpers/ejs"),
+          stripTags: require("../helpers/ejs"),
+          editIcon: require("../helpers/ejs"),
+          stories
+        });
+      });
   });
 
   router.put("/:id", (req,res) => {
