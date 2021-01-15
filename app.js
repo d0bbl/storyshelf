@@ -16,7 +16,7 @@ const truncate = require("./helpers/ejs");
 const app = express();
 
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(cookieParser());
@@ -32,13 +32,15 @@ app.use(passport.session());
 require("./config/passport")(passport);
 app.use(methodOverride('_method'));
 
+
+
+mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true, useFindAndModify: false})
+.then((result) => {
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
 console.log("listening for requests");
 });
-
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true, useFindAndModify: false})
-.then((result) => console.log("mongo connected"))
+})
 .catch(err => {throw err});
 
 app.use((req, res, next) => {

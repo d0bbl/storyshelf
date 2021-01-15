@@ -46,7 +46,7 @@
                 <h5><%=comment.commentBody%></h5>
                 <div class="chip">
                 <img src="<%= comment.commentUser.image %>">
-                <%= comment.commentUser.firstName %> <%= comment.commentUser.lastName %>
+                <a href="/stories/user/<%=comment.commentUser._id%>" ><%= comment.commentUser.firstName %> <%= comment.commentUser.lastName %></a> 
                 </div>
                 <br>
                 <small>Posted: <%= formatDate.formatDate(comment.commentDate, "MMMM Do gggg. hh:mm:ss a")%></small>
