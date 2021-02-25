@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require('connect-mongo')(session);
@@ -23,7 +24,7 @@ app.use(cookieParser());
 app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection }),
   secret: 'secret',
-  resave: false,
+  resave: true,
   saveUninitialized: false
 }));
 app.use(passport.initialize());
@@ -36,9 +37,9 @@ app.use(methodOverride('_method'));
 
 mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true , useCreateIndex: true, useFindAndModify: false})
 .then((result) => {
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 app.listen(port, () => {
-console.log("listening for requests");
+console.log(`listening for requests on port ${port}`);
 });
 })
 .catch(err => {throw err});
